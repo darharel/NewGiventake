@@ -2,11 +2,16 @@ import express from "express";
 import cors from "cors";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import path from "path";
+import { fileURLToPath } from "url";
 import { initDb, store } from "./db.js";
 
 const app = express();
-const PORT = 4000;
-const JWT_SECRET = "giventake-mvp-secret";
+const PORT = Number(process.env.PORT || 4000);
+const JWT_SECRET = process.env.JWT_SECRET || "giventake-mvp-secret";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const clientDistPath = path.resolve(__dirname, "..", "dist");
 
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
